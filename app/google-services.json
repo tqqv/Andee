@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1035455811852",
+    "project_id": "andeee-bc5f9",
+    "storage_bucket": "andeee-bc5f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1035455811852:android:4c9b54ed9b4e5bd22b3929",
+        "android_client_info": {
+          "package_name": "com.example.andeee"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBZNzmD5PXWJTpIvmOlAYqcPEGIRKSexA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
