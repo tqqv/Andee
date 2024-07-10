@@ -2,6 +2,7 @@ package com.example.andeee.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,6 +11,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 
 import com.example.andeee.Adapter.BestFoodAdapter;
+import com.example.andeee.Adapter.CategoryAdapter;
+import com.example.andeee.Domain.Category;
 import com.example.andeee.Domain.Foods;
 import com.example.andeee.Domain.Location;
 import com.example.andeee.Domain.Price;
@@ -38,6 +41,7 @@ public class MainActivity extends BaseActivity {
         initTime();
         initPrice();
         initBestFood();
+        initCategory();
     }
 
     private void initBestFood() {
@@ -66,6 +70,33 @@ public class MainActivity extends BaseActivity {
 
                     }
                 });
+    }
+
+    private void initCategory() {
+        DatabaseReference myRef = database.getReference("Category");
+        binding.progressBarCategory.setVisibility(View.VISIBLE);
+        ArrayList<Category> list = new ArrayList<>();
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    for (DataSnapshot issue: snapshot.getChildren()){
+                        list.add(issue.getValue(Category.class));
+                    }
+                    if(list.size() > 0){
+                        binding.categoryView.setLayoutManager(new GridLayoutManager(MainActivity.this, 4));
+                        RecyclerView.Adapter adapter = new CategoryAdapter(list);
+                        binding.categoryView.setAdapter(adapter);
+                    }
+                    binding.progressBarCategory.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void initLocation() {
