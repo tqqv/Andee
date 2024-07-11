@@ -1,6 +1,7 @@
 package com.example.andeee.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.example.andeee.Activity.ListFoodsActivity;
 import com.example.andeee.Domain.Category;
 import com.example.andeee.R;
 
@@ -85,10 +87,18 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.viewho
         int drawableResourseId = context.getResources().
                 getIdentifier(items.get(position).
                         getImagePath(), "drawable",
-                        holder.itemView.getContext().getOpPackageName());
+                        holder.itemView.getContext().getPackageName());
         Glide.with(context).
                 load(drawableResourseId) // Set error placeholder drawable
                 .into(holder.pic);
+
+        holder.itemView.setOnClickListener(v -> {
+                Intent intent = new Intent(context, ListFoodsActivity.class);
+                intent.putExtra("CategoryId", items.get(position).getId());
+
+                intent.putExtra("CategoryName", items.get(position).getName());
+                context.startActivity(intent);
+        });
     }
 
     @Override
