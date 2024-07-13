@@ -2,6 +2,7 @@ package com.example.andeee.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.example.andeee.Activity.DetailActivity;
 import com.example.andeee.Domain.Foods;
 import com.example.andeee.R;
 
@@ -71,7 +73,11 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.viewho
                     }
                 })
                 .into(holder.pic);
-
+    holder.itemView.setOnClickListener(v -> {
+        Intent intent = new Intent(context, DetailActivity.class);
+        intent.putExtra("object", items.get(position));
+        context.startActivity(intent);
+    });
     }
 
     @Override
