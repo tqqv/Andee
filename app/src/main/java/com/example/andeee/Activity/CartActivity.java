@@ -10,9 +10,10 @@ import android.view.View;
 import com.example.andeee.Adapter.CartAdapter;
 
 import com.example.andeee.Helper.ManagmentCart;
+import com.example.andeee.R;
 import com.example.andeee.databinding.ActivityCartBinding;
 
-public class CartActivity extends AppCompatActivity {
+public class CartActivity extends BaseActivity {
     private ActivityCartBinding binding;
     private RecyclerView.Adapter adapter;
     private ManagmentCart managmentCart;
@@ -23,7 +24,6 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityCartBinding.inflate((getLayoutInflater()));
         setContentView(binding.getRoot());
-
         managmentCart= new ManagmentCart(this);
 
         setVariable();
