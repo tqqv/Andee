@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.andeee.Domain.Foods;
 import com.google.firebase.auth.AuthResult;
 
 import com.example.andeee.R;
@@ -21,6 +23,7 @@ import com.example.andeee.databinding.ActivityPaymentBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PaymentActivity extends AppCompatActivity {
@@ -37,7 +40,7 @@ ActivityPaymentBinding binding;
         binding.emailInput.setText(userEmail);
         Intent intent = getIntent();
         binding.totalAmountText.setText("Total Amount: $"+intent.getStringExtra("total"));
-//        Log.d("HOANG", Arrays.toString(intent.getParcelableArrayListExtra("listCart")));
+//        ArrayList<Foods> listFood = intent.getParcelableArrayListExtra("listCart");
         setVariable();
     }
 

@@ -37,7 +37,7 @@ public class LoginActivity extends BaseActivity {
                     if(task.isSuccessful()) {
                         SharedPreferences preferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString("email", "email");
+                        editor.putString("email", email);
                         editor.apply();
 
                         Log.i(TAG, "onComplete: LOGIN SUCCESS ");
