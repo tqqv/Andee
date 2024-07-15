@@ -6,15 +6,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.andeee.Adapter.CartAdapter;
 
+import com.example.andeee.Domain.Foods;
 import com.example.andeee.Helper.ManagmentCart;
 import com.example.andeee.R;
 import com.example.andeee.databinding.ActivityCartBinding;
+
+import java.util.ArrayList;
 
 public class CartActivity extends BaseActivity {
     private ActivityCartBinding binding;
@@ -59,6 +63,8 @@ public class CartActivity extends BaseActivity {
             Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
             intent.putExtra("total", String.valueOf(total));
             intent.putExtra("listCard", managmentCart.getListCart());
+
+
 
             startActivity(intent);
 

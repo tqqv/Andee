@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,7 +41,14 @@ ActivityPaymentBinding binding;
         binding.emailInput.setText(userEmail);
         Intent intent = getIntent();
         binding.totalAmountText.setText("Total Amount: $"+intent.getStringExtra("total"));
-//        ArrayList<Foods> listFood = intent.getParcelableArrayListExtra("listCart");
+
+        ArrayList<Parcelable> listCard = intent.getParcelableArrayListExtra("listCard");
+        Log.d("HOANG",listCard.toString());
+
+
+
+
+
         setVariable();
     }
 

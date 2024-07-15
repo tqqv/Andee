@@ -39,7 +39,6 @@ public class LoginActivity extends BaseActivity {
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putString("email", email);
                         editor.apply();
-
                         Log.i(TAG, "onComplete: LOGIN SUCCESS ");
                         Toast.makeText(LoginActivity.this, "Login successfully", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
