@@ -107,6 +107,7 @@ public class ManagmentCart {
                     databaseReference.child("orders").child(String.valueOf(orderCount)).setValue(order)
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
+                                    clearCart();
                                     Toast.makeText(context, "Order placed successfully!", Toast.LENGTH_SHORT).show();
                                     // Clear the cart after placing the order
                                     tinyDB.remove("listCard" + userEmail);
@@ -126,6 +127,14 @@ public class ManagmentCart {
             Toast.makeText(context, "Cart is empty or user is not authenticated.", Toast.LENGTH_SHORT).show();
         }
     }
+
+
+    public void clearCart() {
+        String userEmail = getUserEmail();
+        tinyDB.remove("CartList");
+        Toast.makeText(context, "Cart cleared", Toast.LENGTH_SHORT).show();
+    }
+
 
 
     private String getUserEmail() {
