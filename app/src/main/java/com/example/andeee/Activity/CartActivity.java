@@ -63,9 +63,6 @@ public class CartActivity extends BaseActivity {
             Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
             intent.putExtra("total", String.valueOf(total));
             intent.putExtra("listCard", managmentCart.getListCart());
-
-
-
             startActivity(intent);
 
         });
