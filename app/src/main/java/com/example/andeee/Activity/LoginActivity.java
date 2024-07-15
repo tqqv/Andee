@@ -3,7 +3,9 @@ package com.example.andeee.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,7 +35,13 @@ public class LoginActivity extends BaseActivity {
             if(!email.isEmpty() && !password.isEmpty()) {
                 mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, task -> {
                     if(task.isSuccessful()) {
+                        SharedPreferences preferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("email", "email");
+                        editor.apply();
+
                         Log.i(TAG, "onComplete: LOGIN SUCCESS ");
+                        Toast.makeText(LoginActivity.this, "Login successfully", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     } else  {
                         Toast.makeText(LoginActivity.this, "Authenticate failed", Toast.LENGTH_SHORT).show();
