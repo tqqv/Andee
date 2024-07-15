@@ -63,6 +63,7 @@ public class MainActivity extends BaseActivity {
         }
         });
         binding.cardBtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CartActivity.class )));
+        binding.filterBtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, OrderHistoryActivity.class )));
     }
 
     private void initBestFood() {
