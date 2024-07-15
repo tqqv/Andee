@@ -6,9 +6,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.andeee.Domain.Foods;
-import com.example.andeee.Domain.Order;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.example.andeee.Domain.Order;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,13 +19,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-
 public class ManagmentCart {
     private DatabaseReference databaseReference;
     private Context context;
     private TinyDB tinyDB;
-
     private FirebaseAuth mAuth;
+
 
 
     public ManagmentCart(Context context) {
@@ -46,41 +45,48 @@ public class ManagmentCart {
                 break;
             }
         }
-        if(existAlready){
+        if (existAlready) {
             listpop.get(n).setNumberInCart(item.getNumberInCart());
-        }else{
+        } else {
             listpop.add(item);
         }
-        tinyDB.putListObject("CartList",listpop);
+        String userEmail = getUserEmail();
+        tinyDB.putListObject("CartList_" + userEmail, listpop);
         Toast.makeText(context, "Added to your Cart", Toast.LENGTH_SHORT).show();
     }
 
     public ArrayList<Foods> getListCart() {
-        return tinyDB.getListObject("CartList");
+        String userEmail = getUserEmail();
+        return tinyDB.getListObject("CartList_" + userEmail);
     }
 
-    public Double getTotalFee(){
-        ArrayList<Foods> listItem=getListCart();
-        double fee=0;
+    public Double getTotalFee() {
+        ArrayList<Foods> listItem = getListCart();
+        double fee = 0;
         for (int i = 0; i < listItem.size(); i++) {
-            fee=fee+(listItem.get(i).getPrice()*listItem.get(i).getNumberInCart());
+            fee = fee + (listItem.get(i).getPrice() * listItem.get(i).getNumberInCart());
         }
         return fee;
     }
-    public void minusNumberItem(ArrayList<Foods> listItem,int position,ChangeNumberItemsListener changeNumberItemsListener){
-        if(listItem.get(position).getNumberInCart()==1){
+
+    public void minusNumberItem(ArrayList<Foods> listItem, int position, ChangeNumberItemsListener changeNumberItemsListener) {
+        if (listItem.get(position).getNumberInCart() == 1) {
             listItem.remove(position);
-        }else{
-            listItem.get(position).setNumberInCart(listItem.get(position).getNumberInCart()-1);
+        } else {
+            listItem.get(position).setNumberInCart(listItem.get(position).getNumberInCart() - 1);
         }
-        tinyDB.putListObject("CartList",listItem);
+        String userEmail = getUserEmail();
+        tinyDB.putListObject("CartList_" + userEmail, listItem);
         changeNumberItemsListener.change();
     }
-    public  void plusNumberItem(ArrayList<Foods> listItem,int position,ChangeNumberItemsListener changeNumberItemsListener){
-        listItem.get(position).setNumberInCart(listItem.get(position).getNumberInCart()+1);
-        tinyDB.putListObject("CartList",listItem);
+
+    public void plusNumberItem(ArrayList<Foods> listItem, int position, ChangeNumberItemsListener changeNumberItemsListener) {
+        listItem.get(position).setNumberInCart(listItem.get(position).getNumberInCart() + 1);
+        String userEmail = getUserEmail();
+        tinyDB.putListObject("CartList_" + userEmail, listItem);
         changeNumberItemsListener.change();
     }
+
 
     public void placeOrder(String phoneNumber, String address, String paymentMethod, String paymentStatus, double totalPrice ) {
         ArrayList<Foods> listItem = getListCart();
@@ -113,6 +119,7 @@ public class ManagmentCart {
                     databaseReference.child("Orders").child(String.valueOf(orderCount)).setValue(order)
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
+                                    clearCart();
                                     Toast.makeText(context, "Order placed successfully!", Toast.LENGTH_SHORT).show();
                                     // Clear the cart after placing the order
                                     tinyDB.remove("listCard" + userEmail);
@@ -134,6 +141,14 @@ public class ManagmentCart {
     }
 
 
+    public void clearCart() {
+        String userEmail = getUserEmail();
+        tinyDB.remove("CartList_" + userEmail);
+        Toast.makeText(context, "Cart cleared", Toast.LENGTH_SHORT).show();
+    }
+
+
+
     private String getUserEmail() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
@@ -141,5 +156,5 @@ public class ManagmentCart {
         }
         return "";
     }
-
 }
+
