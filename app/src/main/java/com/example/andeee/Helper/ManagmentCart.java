@@ -116,7 +116,7 @@ public class ManagmentCart {
 
                     // Tạo đơn hàng mới với số thứ tự tăng dần
                     Order order = new Order(String.valueOf(orderCount), userEmail, formattedDate, listItem, totalPrice, paymentMethod, paymentStatus, phoneNumber, address);
-                    databaseReference.child("Orders").child(String.valueOf(orderCount)).setValue(order)
+                    databaseReference.child("orders").child(String.valueOf(orderCount)).setValue(order)
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     clearCart();
