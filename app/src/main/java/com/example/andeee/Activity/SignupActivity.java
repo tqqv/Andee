@@ -31,6 +31,7 @@ public class SignupActivity extends BaseActivity {
     }
 
     private void setVariable() {
+        binding.textView5.setOnClickListener(v -> startActivity(new Intent(SignupActivity.this, LoginActivity.class)));
         binding.registerBtn.setOnClickListener(v -> {
             String email = binding.userEdt.getText().toString();
             String password = binding.passEdt.getText().toString();

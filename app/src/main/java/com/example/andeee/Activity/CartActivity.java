@@ -73,7 +73,7 @@ public class CartActivity extends BaseActivity {
         double delivery = 10; // 10 dollar
 
         tax = Math.round(managmentCart.getTotalFee() * percentTax*100) /100;
-         total = Math.round((managmentCart.getTotalFee() + tax + delivery) * 100) / 100;
+        total = Math.round((managmentCart.getTotalFee() + tax + delivery) * 100) / 100;
         double itemTotal = Math.round(managmentCart.getTotalFee() * 100) /100;
 
         binding.totalFeeTxt.setText("$" + itemTotal);
